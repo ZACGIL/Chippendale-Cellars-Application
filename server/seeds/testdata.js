@@ -11,15 +11,17 @@ module.exports = {
         { username: 'yetanothertest', email: 'yetanothertest@email.com', password: 'test12345' },
     ],
     beerFirst: [
-        'Victoria',
-        'Melbourne',
-        'New South Wales',
+        'Royal',
+        'Soldier',
+        'Great Eastern',
         'Northern',
         'Southern',
         'Eastern',
         'Western',
         'Great Star',
-        '4 Pines'
+        '5 Pines',
+        'Lord Henry',
+        'Red Giant'
     ],
     beerSecond: [
         'Breweries',
@@ -43,7 +45,6 @@ module.exports = {
         'Japan'
     ],
     packSizes: [
-        1,
         6,
         16,
         24,
@@ -55,6 +56,7 @@ module.exports = {
         500
     ],
     beerAlcohol: [
+        0,
         3,
         4,
         5,
@@ -62,11 +64,11 @@ module.exports = {
     ],
     wineFirst: [
         'Penfolds',
-        'South Australia',
-        'Hunter Valley',
-        'Adelaide',
+        'South',
+        'Hunter',
+        'Church',
         'Southern',
-        'New Zealand',
+        'Clean & Bold',
         'Old World',
         'New World',
         'Great Star',
@@ -110,6 +112,7 @@ module.exports = {
         'Chile',
     ],
     wineAlcohol: [
+        0,
         6,
         10,
         12,

@@ -41,6 +41,17 @@ connection.once('open', async () => {
                     return results;
                 }
             })
+            .then(results => {
+                if (results) {
+                    console.log('Subcategories for wine inserted. 🌱');
+                }
+            })
+            .catch(err => console.log(err));
+    }, 1000);
+
+    setTimeout(() => {
+        Subcategory.find({})
+            .exec()
             .then(async collection => {
                 //if the collection is the length of the previously added wines then continue
                 if (collection.length === basicWineSubcategories.length) {
@@ -56,13 +67,14 @@ connection.once('open', async () => {
                     return results;
                 }
             })
-            .then((results) => {
+            .then(results => {
                 if (results) {
-                    console.log('Subcategories inserted. 🌱');
+                    console.log('Subcategories for beer inserted. 🌱');
                 }
-                setTimeout(() => process.exit(0), 3000);
-            }
+            })
+            .then(() =>
+                process.exit(0)
             )
             .catch(err => console.log(err));
-    }, 3000);
+    }, 2000)
 });
