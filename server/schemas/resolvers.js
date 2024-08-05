@@ -11,7 +11,7 @@ const resolvers = {
             if (context.user) {
                 return User.findOne({ _id: context.user._id });
             }
-            throw new AuthenticationError('You need to be logged in!');
+            throw AuthenticationError;
         },
     },
     Mutation: {
@@ -24,13 +24,13 @@ const resolvers = {
         loginUser: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
             if (!user) {
-                throw AuthentificationError;
+                throw AuthenticationError;
             }
 
             const correctPw = await user.isCorrectPassword(password);
 
             if (!correctPw) {
-                throw AuthentificationError;
+                throw AuthenticationError;
             }
 
             const token = signToken(user);
