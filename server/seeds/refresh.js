@@ -9,6 +9,11 @@ connection.once('open', async () => {
         await connection.dropCollection('users');
     }
 
+    let productCheck = await connection.db.listCollections({ name: 'products' }).toArray();
+    if (productCheck.length) {
+        await connection.dropCollection('products');
+    }
+
     let categoryCheck = await connection.db.listCollections({ name: 'categories' }).toArray();
     if (categoryCheck.length) {
         await connection.dropCollection('categories');
@@ -27,6 +32,11 @@ connection.once('open', async () => {
     let beerCheck = await connection.db.listCollections({ name: 'beers' }).toArray();
     if (beerCheck.length) {
         await connection.dropCollection('beers');
+    }
+
+    let orderCheck = await connection.db.listCollections({ name: 'orders' }).toArray();
+    if (orderCheck.length) {
+        await connection.dropCollection('orders');
     }
 
     console.info('Data refreshed!');
