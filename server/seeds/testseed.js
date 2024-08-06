@@ -6,6 +6,7 @@ const {
     wineFirst, wineSecond, varietal, wineVolumes, wineCountries, wineAlcohol,
     getRandomNumberFromRange, getRandomArrItem, getRandomName,
 } = require('./testdata');
+const { basicWineSubcategories, basicBeerSubcategories } = require('./data');
 
 connection.on('error', (err) => err);
 
@@ -15,10 +16,9 @@ connection.once('open', async () => {
     const beers = [];
 
     const winesToGenerate = 50;
-    const beersToGenerate = 40;
+    const beersToGenerate = 60;
 
-    //also update subcategories and categories with seed data dynamically
-    //complete typedefs and resolvers
+    //randomly generate wines and beers
     Wine.find({})
         .exec()
         .then(async collection => {
@@ -151,6 +151,7 @@ connection.once('open', async () => {
                     await Product.insertMany(data);
                 }
             })
+            .catch(err => console.log(err));
 
         Beer.find({})
             .exec()
@@ -216,58 +217,77 @@ connection.once('open', async () => {
                     console.log('Beer category updated. ✅')
                 }
             })
-            .then(() =>
-                process.exit(0)
-            )
             .catch(err => console.log(err));
-    }, 3000)
+    }, 3000);
 
-    // TODO
     //update subcategories
-    // setTimeout(() => {
-    //     Wine.find({})
-    //         .exec()
-    //         .then(async collection => {
-    //             //if our collections have been generated
-    //             if (collection.length === winesToGenerate) {
-    //                 const wines = await Wine.find({});
-    //                 return wines;
-    //             }
-    //             return console.log('Wine isnt populated.');
-    //         })
-    //         .then(async wines => {
-    //             if (wines) {
-    //                 const products = wines.flatMap(e => e.productInformation);
-    //                 const productSubs = products.flatMap(e => e.subcategory);
-    //                 const subs = await Subcategory.find({});
+    setTimeout(() => {
+        for (let i = 0; i < basicWineSubcategories.length; i++) {
+            Wine.find({})
+                .exec()
+                .then(async collection => {
+                    //if our collections have been generated
+                    if (collection.length === winesToGenerate) {
+                        const sub = await Subcategory.find({ name: basicWineSubcategories[i].name });
+                        return sub[0];
+                    }
+                    return console.log('Wine isnt populated.');
+                })
+                .then(async ({ _id }) => {
+                    //if our collections have been generated
+                    if (_id) {
+                        const productsToAdd = await Product.find({ subcategory: _id });
+                        return { _id, productsToAdd }
+                    }
+                })
+                .then(async ({ _id, productsToAdd }) => {
+                    //if our collections have been generated
+                    if (_id) {
+                        const sub = await Subcategory.findOneAndUpdate(
+                            { _id: _id },
+                            { $addToSet: { products: productsToAdd } },
+                            { new: true }
+                        );
+                    }
+                })
+                .catch(err => console.log(err));
+        }
+        console.log('Wine subcategories updated. ✅');
+        for (let i = 0; i < basicBeerSubcategories.length; i++) {
+            Beer.find({})
+                .exec()
+                .then(async collection => {
+                    //if our collections have been generated
+                    if (collection.length === beersToGenerate) {
+                        const sub = await Subcategory.find({ name: basicBeerSubcategories[i].name });
+                        return sub[0];
+                    }
+                    return console.log('Wine isnt populated.');
+                })
+                .then(async ({ _id }) => {
+                    //if our collections have been generated
+                    if (_id) {
+                        const productsToAdd = await Product.find({ subcategory: _id });
+                        return { _id, productsToAdd }
+                    }
+                })
+                .then(async ({ _id, productsToAdd }) => {
+                    //if our collections have been generated
+                    if (_id) {
+                        const sub = await Subcategory.findOneAndUpdate(
+                            { _id: _id },
+                            { $addToSet: { products: productsToAdd } },
+                            { new: true }
+                        );
+                    }
+                })
+                .catch(err => console.log(err));
+        }
+        console.log('Beer subcategories updated. ✅');
+    }, 4000);
 
-    //                 return { products, productSubs, subs };
-    //             }
-    //         })
-    //         .then(async data => {
-    //             if (data) {
-    //                 const { products, subs } = data;
-    //                 const names = subs.flatMap(e => e.name);
-
-    //                 for (i = 0; i < products.length; i++) {
-    //                     for (a = 0; a < subs.length; a++) {
-    //                         for (b = 0; b < products[i].subcategory.length; b++) {
-    //                             if (products[i].subcategory[b] === subs[a]._id) {
-    //                                 console.log('match');
-    //                                 let sub = await Subcategory.findOneAndUpdate(
-    //                                     { _id: subs[a]._id },
-    //                                     { $addToSet: { products: products[i] } },
-    //                                     { new: true }
-    //                                 );
-    //                             }
-    //                         }
-    //                     }
-    //                 }
-    //             };
-    //         })
-    //         .then(() =>
-    //             process.exit(0)
-    //         )
-    //         .catch(err => console.log(err));
-    // }, 4000)
+    //close CLI
+    setTimeout(() =>
+        process.exit(0),
+        5000)
 });

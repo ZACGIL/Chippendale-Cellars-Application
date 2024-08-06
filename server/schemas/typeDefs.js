@@ -130,8 +130,11 @@ const typeDefs = `
     type Mutation {
         addUser(username: String!, email: String!, password: String!): Auth
         loginUser(email: String!, password: String!): Auth
+
+        addProduct(ProductInput!): Product
     }
 `
+
 // addProduct(ProductInput!): Product
 //         updateProduct(_id: ID!): Product
 //         removeProduct(_id: ID!): Product

@@ -40,7 +40,7 @@ const resolvers = {
             //Stripe logic here
             return console.log('Stripe logic')
         },
-        product: async (parent, { input: { _id, name }}) => {
+        product: async (parent, { input: { _id, name } }) => {
             if(_id) { 
                 const product = await Product.find({ _id: _id });
                 return product;
@@ -75,7 +75,6 @@ const resolvers = {
             token = signToken(user);
             return { token, user };
         },
-    
         loginUser: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
             if (!user) {
