@@ -171,7 +171,7 @@ connection.once('open', async () => {
             })
     }, 2000);
 
-    //update categories and subcategories
+    //update categories
     setTimeout(() => {
         Wine.find({})
             .exec()
@@ -179,17 +179,17 @@ connection.once('open', async () => {
                 //if our collections have been generated
                 if (collection.length === winesToGenerate) {
                     const wines = await Wine.find({});
-                    const ids = wines.map(e => e._id);
-                    return ids;
+                    const productInfo = wines.flatMap(e => e.productInformation);
+                    return productInfo;
                 }
                 return console.log('Wine isnt populated.');
             })
-            .then(async ids => {
-                if (ids) {
+            .then(async wines => {
+                if (wines) {
                     console.log('Wine category updated. ✅')
                     await Category.findOneAndUpdate(
                         { name: 'Wine' },
-                        { $addToSet: { products: ids } },
+                        { $addToSet: { products: wines } },
                         { new: true }
                     );
                 }
@@ -201,16 +201,16 @@ connection.once('open', async () => {
             .then(async collection => {
                 if (collection.length === beersToGenerate) {
                     const beers = await Beer.find({});
-                    const ids = beers.map(e => e._id);
-                    return ids;
+                    const productInfo = beers.flatMap(e => e.productInformation);
+                    return productInfo;
                 }
                 return console.log('Beer isnt populated.');
             })
-            .then(async ids => {
-                if (ids) {
+            .then(async beers => {
+                if (beers) {
                     await Category.findOneAndUpdate(
                         { name: 'Beer' },
-                        { $addToSet: { products: ids } },
+                        { $addToSet: { products: beers } },
                         { new: true }
                     );
                     console.log('Beer category updated. ✅')
@@ -220,5 +220,54 @@ connection.once('open', async () => {
                 process.exit(0)
             )
             .catch(err => console.log(err));
-    }, 4000)
+    }, 3000)
+
+    // TODO
+    //update subcategories
+    // setTimeout(() => {
+    //     Wine.find({})
+    //         .exec()
+    //         .then(async collection => {
+    //             //if our collections have been generated
+    //             if (collection.length === winesToGenerate) {
+    //                 const wines = await Wine.find({});
+    //                 return wines;
+    //             }
+    //             return console.log('Wine isnt populated.');
+    //         })
+    //         .then(async wines => {
+    //             if (wines) {
+    //                 const products = wines.flatMap(e => e.productInformation);
+    //                 const productSubs = products.flatMap(e => e.subcategory);
+    //                 const subs = await Subcategory.find({});
+
+    //                 return { products, productSubs, subs };
+    //             }
+    //         })
+    //         .then(async data => {
+    //             if (data) {
+    //                 const { products, subs } = data;
+    //                 const names = subs.flatMap(e => e.name);
+
+    //                 for (i = 0; i < products.length; i++) {
+    //                     for (a = 0; a < subs.length; a++) {
+    //                         for (b = 0; b < products[i].subcategory.length; b++) {
+    //                             if (products[i].subcategory[b] === subs[a]._id) {
+    //                                 console.log('match');
+    //                                 let sub = await Subcategory.findOneAndUpdate(
+    //                                     { _id: subs[a]._id },
+    //                                     { $addToSet: { products: products[i] } },
+    //                                     { new: true }
+    //                                 );
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //             };
+    //         })
+    //         .then(() =>
+    //             process.exit(0)
+    //         )
+    //         .catch(err => console.log(err));
+    // }, 4000)
 });
