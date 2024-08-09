@@ -6,6 +6,10 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'title': [ "Gravitas One", "san-serif"],
+        'subtitle': [ "Playwrite AU TAS ", "san-serif"],
+      },
     }
   },
   plugins: []

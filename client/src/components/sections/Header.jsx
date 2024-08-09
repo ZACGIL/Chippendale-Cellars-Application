@@ -1,10 +1,15 @@
-import Nav from "./Nav";
+import Nav from './Nav';
+import SearchBar from './SearchBar';
+import logo from '../../images/logo_placeholder.png';
 
 export default function Header() {
     return (
-        <div>
-            <div>
-                <h1>Header Section</h1>
+        <div className='bg-slate-300 shadow text-2xl'>
+            <div className='w-full mx-auto p-10 flex items-center justify-between font-title'>
+                <div className='flex-col justify-center'>
+                    <h1 className='text-4xl border-2 border-black p-2'>Chippendale Cellars</h1>
+                    <p className='text-xl text-center p-1 font-subtitle'>'Locals helping locals'</p>
+                </div>
                 <Nav />
             </div>
         </div>

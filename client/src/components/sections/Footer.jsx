@@ -2,9 +2,8 @@ import Socials from "./Socials";
 
 export default function Footer() {
     return (
-        <div>
-            <div>
-                <h1>Footer Section</h1>
+        <div className='bg-slate-300 border-2 border-black'>
+            <div className='w-full mx-auto p-14 flex items-center justify-center'>
                 <Socials />
             </div>
         </div>
