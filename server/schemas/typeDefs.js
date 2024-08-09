@@ -128,8 +128,11 @@ const typeDefs = `
 
         wines: [Wine]
         wine(_id: ID!): Wine
+        latestWines: [Wine]
+
         beers: [Beer]
         beer(_id: ID!): Beer
+        latestBeers: [Beer]
 
         categories: [Category]
         category(_id: ID, name: String): [Category]
@@ -149,14 +152,10 @@ const typeDefs = `
 
         addBeer(input: BeerInput!): Beer
     }
-`
+`   
 
-// addProduct(ProductInput!): Product
-//         updateProduct(_id: ID!): Product
-//         removeProduct(_id: ID!): Product
-
-//         addOrder(products: [ID]!): Order
-//         removeOrder(_id: ID!): Order
+// addOrder(products: [ID]!): Order
+// removeOrder(_id: ID!): Order
 // updateUser
 // removeUser
 

@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import Navbar from '../UI/Navbar';
 
 export default function CatalogueHeader() {
     const location = useLocation();
@@ -42,52 +41,52 @@ export default function CatalogueHeader() {
     return (
         <div className={isActive ? 'bg-orange-500 p-2 border-2 border-black border-x-orange-500' : 'hidden'}>
             <div className='text-white font-title flex justify-center'>
-                <Navbar
-                    links={[
+                <nav>
+                    <ul className='text-center flex flex-col sm:block'>
                         <Link
                             className='m-8 hover:text-yellow-300 border-2 border-orange-700 border-y-orange-500 p-1'
                             key={1}
                             to="/Wine">
                             Wines
-                        </Link>,
+                        </Link>
                         <Link
                             className='m-8 hover:text-yellow-300 border-2 border-orange-700 border-y-orange-500 p-1'
                             key={2}
                             to="/Beer">
                             Beers
-                        </Link>,
+                        </Link>
                         <Link
                             className='m-8 hover:text-yellow-300 border-2 border-orange-700 border-y-orange-500 p-1'
                             key={3}
                             to="/">
                             Spirits
-                        </Link>,
+                        </Link>
                         <Link
                             className='m-8 hover:text-yellow-300 border-2 border-orange-700 border-y-orange-500 p-1'
                             key={4}
                             to="/">
                             Ciders
-                        </Link>,
+                        </Link>
                         <Link
                             className='m-8 hover:text-yellow-300 border-2 border-orange-700 border-y-orange-500 p-1'
                             key={5}
                             to="/">
                             RTD
-                        </Link>,
+                        </Link>
                         <Link
                             className='m-8 hover:text-yellow-300 border-2 border-orange-700 border-y-orange-500 p-1'
                             key={6}
                             to="/">
                             Mixers
-                        </Link>,
+                        </Link>
                         <Link
                             className='m-8 hover:text-yellow-300 border-2 border-orange-700 border-y-orange-500 p-1'
                             key={7}
                             to="/">
                             Other
-                        </Link>,
-                    ]}
-                />
+                        </Link>
+                    </ul>
+                </nav>
             </div>
         </div>
     );

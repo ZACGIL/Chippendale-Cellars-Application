@@ -31,3 +31,18 @@ export const GET_ME = gql`
     }
   }
 `;
+
+export const LATEST_WINES = gql`
+query latestWines{
+  latestWines {
+    _id
+    varietal
+    productInformation {
+      _id
+      name
+      quantity
+      price
+    }
+  }
+}
+`

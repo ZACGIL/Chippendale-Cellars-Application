@@ -53,8 +53,8 @@ export default function Login() {
 
     return (
         <div className='flex-col justify-center items-center text-2xl'>
-            <form className="bg-white shadow-md rounded px-60 pt-10 pb-12 my-12" onSubmit={handleFormSubmit}>
-                <h1 className='text-center text-gray-700 font-bold text-5xl my-10'>
+            <form className='bg-white shadow-md rounded px-60 pt-12 pb-20 my-12' onSubmit={handleFormSubmit}>
+                <h1 className='text-center text-gray-700 font-bold underline text-5xl mb-12'>
                     Log In
                 </h1>
                 <div className='mb-4'>
@@ -93,7 +93,7 @@ export default function Login() {
                     </button>
                 </div>
             </form>
-            <div className='bg-white shadow-md rounded px-60 py-2 mb-12 flex-col'>
+            <div className='bg-white shadow-md rounded px-60 py-2 mb-12 flex flex-col md:flex-row'>
                 <p className='block text-gray-700 mx-2'>Don't have an account?</p>
                 <a className='text-indigo-500 underline' href='/Signup'>Sign Up Here</a>
             </div>

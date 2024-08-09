@@ -43,7 +43,7 @@ export default function App() {
             <section>
                 < CatalogueHeader />
             </section>
-            <main className='bg-slate-500 flex justify-center min-h-screen text-white'>
+            <main className='bg-slate-400 flex justify-center min-h-screen text-white'>
                 < Outlet />
             </main>
             <footer>

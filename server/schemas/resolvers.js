@@ -21,8 +21,14 @@ const resolvers = {
         wines: async () => {
             return Wine.find();
         },
+        latestWines: async () => {
+            return Wine.find().sort({ _id: -1}).limit(5);
+        },
         beers: async () => {
             return Beer.find();
+        },
+        latestBeers: async () => {
+            return Beer.find().sort({ _id: -1}).limit(5);
         },
         categories: async () => {
             return Category.find();
