@@ -12,6 +12,7 @@ import Login from './components/pages/Login';
 import Signup from './components/pages/Signup';
 import WinePage from './components/pages/WinePage';
 import BeerPage from './components/pages/BeerPage';
+import Order from './components/pages/OrderHistory';
 
 const router = createBrowserRouter([
     {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
             {
                 path: '/Wine',
                 element: <WinePage />,
+            },
+            {
+                path: '/OrderHistory',
+                element: <Order />,
             },
         ],
     },
