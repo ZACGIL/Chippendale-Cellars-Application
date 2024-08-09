@@ -20,6 +20,7 @@ const typeDefs = `
         _id: ID
         name: String
         products: [Product]!
+        productsTotal: Int
     }
     
     type Subcategory {
@@ -27,6 +28,7 @@ const typeDefs = `
         category: ID
         name: String
         products: [Product]!
+        productsTotal: Int
     }
 
     type Product {
@@ -36,13 +38,13 @@ const typeDefs = `
         price: Float
         quantity: Int
         category: ID
-        subcategory: ID
+        subcategory: [ID]
         createdAt: String
     }
 
     type Beer {
         _id: ID
-        productInformation: [Product]
+        productInformation: Product
         description: String
         brewery: String
         country: String
@@ -53,7 +55,7 @@ const typeDefs = `
 
     type Wine {
         _id: ID
-        productInformation: [Product]
+        productInformation: Product
         description: String
         varietal: String
         producer: String
@@ -72,8 +74,17 @@ const typeDefs = `
         price: Float
         quantity: Int
         category: ID
-        subcategory: ID
-        createdAt: String
+        subcategory: [ID]
+    }
+
+    input AddProductInput {
+        _id: ID
+        name: String!
+        imagePath: String
+        price: Float!
+        quantity: Int
+        category: ID!
+        subcategory: [ID]
     }
 
     input WineInput {
@@ -113,7 +124,7 @@ const typeDefs = `
         checkout(products: [ProductInput]): Checkout
 
         products: [Product]
-        product(input: ProductInput): [Product]
+        product(_id: ID, name: String): [Product]
 
         wines: [Wine]
         wine(_id: ID!): Wine
@@ -130,8 +141,13 @@ const typeDefs = `
     type Mutation {
         addUser(username: String!, email: String!, password: String!): Auth
         loginUser(email: String!, password: String!): Auth
+        addProduct(input: AddProductInput!): Product
 
-        addProduct(ProductInput!): Product
+        addWine(input: WineInput!): Wine
+        updateWine(input: WineInput!): Wine
+        removeWine(_id: ID!): Category
+
+        addBeer(input: BeerInput!): Beer
     }
 `
 
@@ -143,7 +159,7 @@ const typeDefs = `
 //         removeOrder(_id: ID!): Order
 // updateUser
 // removeUser
-// addWine
+
 // updateWine
 // removeWine
 

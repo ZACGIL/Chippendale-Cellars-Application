@@ -14,7 +14,12 @@ const subcategorySchema = new Schema(
       ref: 'Category',
       required: true
     },
-    products: [Product.schema]
+    products: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Product',
+      }
+    ]
   },
   {
     toJSON: {

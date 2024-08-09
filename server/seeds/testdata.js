@@ -21,7 +21,14 @@ module.exports = {
         'Great Star',
         '5 Pines',
         'Lord Henry',
-        'Red Giant'
+        'Red Giant',
+        'Tall Tree',
+        'King John',
+        'North Garden',
+        'East River',
+        'South City',
+        'West Mountain',
+        'Small Hill'
     ],
     beerSecond: [
         'Breweries',
@@ -72,7 +79,13 @@ module.exports = {
         'Old World',
         'New World',
         'Great Star',
-        'Southern Star'
+        'Southern Star',
+        'Northbank',
+        'Quiet Forest',
+        'Small River',
+        'Stonesmith',
+        'Little Hill',
+        'Three Churches'
     ],
     wineSecond: [
         'Winery',

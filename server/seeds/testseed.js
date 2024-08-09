@@ -15,8 +15,8 @@ connection.once('open', async () => {
     const wines = [];
     const beers = [];
 
-    const winesToGenerate = 50;
-    const beersToGenerate = 60;
+    const winesToGenerate = 60;
+    const beersToGenerate = 80;
 
     //randomly generate wines and beers
     Wine.find({})
@@ -181,16 +181,17 @@ connection.once('open', async () => {
                 if (collection.length === winesToGenerate) {
                     const wines = await Wine.find({});
                     const productInfo = wines.flatMap(e => e.productInformation);
-                    return productInfo;
+                    const productIds = productInfo.flatMap(e => e._id);
+                    return productIds;
                 }
                 return console.log('Wine isnt populated.');
             })
-            .then(async wines => {
-                if (wines) {
+            .then(async winesIds => {
+                if (winesIds) {
                     console.log('Wine category updated. ✅')
                     await Category.findOneAndUpdate(
                         { name: 'Wine' },
-                        { $addToSet: { products: wines } },
+                        { $addToSet: { products: winesIds } },
                         { new: true }
                     );
                 }
@@ -201,17 +202,18 @@ connection.once('open', async () => {
             .exec()
             .then(async collection => {
                 if (collection.length === beersToGenerate) {
-                    const beers = await Beer.find({});
+                    const beers = await Beer.find({})
                     const productInfo = beers.flatMap(e => e.productInformation);
-                    return productInfo;
+                    const productIds = productInfo.flatMap(e => e._id);
+                    return productIds;
                 }
                 return console.log('Beer isnt populated.');
             })
-            .then(async beers => {
-                if (beers) {
+            .then(async beerIds => {
+                if (beerIds) {
                     await Category.findOneAndUpdate(
                         { name: 'Beer' },
-                        { $addToSet: { products: beers } },
+                        { $addToSet: { products: beerIds } },
                         { new: true }
                     );
                     console.log('Beer category updated. ✅')
@@ -237,15 +239,16 @@ connection.once('open', async () => {
                     //if our collections have been generated
                     if (_id) {
                         const productsToAdd = await Product.find({ subcategory: _id });
-                        return { _id, productsToAdd }
+                        const productsIds = productsToAdd.flatMap(e => e._id);
+                        return { _id, productsIds }
                     }
                 })
-                .then(async ({ _id, productsToAdd }) => {
+                .then(async ({ _id, productsIds }) => {
                     //if our collections have been generated
                     if (_id) {
                         const sub = await Subcategory.findOneAndUpdate(
                             { _id: _id },
-                            { $addToSet: { products: productsToAdd } },
+                            { $addToSet: { products: productsIds } },
                             { new: true }
                         );
                     }
@@ -268,15 +271,16 @@ connection.once('open', async () => {
                     //if our collections have been generated
                     if (_id) {
                         const productsToAdd = await Product.find({ subcategory: _id });
-                        return { _id, productsToAdd }
+                        const productsIds = productsToAdd.flatMap(e => e._id);
+                        return { _id, productsIds }
                     }
                 })
-                .then(async ({ _id, productsToAdd }) => {
+                .then(async ({ _id, productsIds }) => {
                     //if our collections have been generated
                     if (_id) {
                         const sub = await Subcategory.findOneAndUpdate(
                             { _id: _id },
-                            { $addToSet: { products: productsToAdd } },
+                            { $addToSet: { products: productsIds } },
                             { new: true }
                         );
                     }

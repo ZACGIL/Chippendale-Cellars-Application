@@ -4,7 +4,7 @@ const Product = require('./Product');
 
 const beerSchema = new Schema({
     productInformation: {
-        type: [Product.schema],
+        type: Product.schema,
         required: true,
     },
     description: {

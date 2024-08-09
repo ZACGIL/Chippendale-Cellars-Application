@@ -4,14 +4,15 @@ const Product = require('./Product');
 
 const wineSchema = new Schema({
     productInformation: {
-        type: [Product.schema],
+        type: Product.schema,
         required: true,
     },
     description: {
         type: String
     },
     varietal: {
-        type: String
+        type: String,
+        required: true
     },
     producer: {
         type: String
@@ -28,7 +29,8 @@ const wineSchema = new Schema({
     volume: {
         type: Number,
         min: 0,
-        default: 750
+        default: 750,
+        required: true
     },
     natural: {
         type: Boolean,
@@ -36,7 +38,8 @@ const wineSchema = new Schema({
     },
     alcoholContent: {
         type: Number,
-        min: 0
+        min: 0,
+        required: true
     }
 });
 

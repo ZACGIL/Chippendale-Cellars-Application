@@ -9,7 +9,12 @@ const categorySchema = new Schema(
       required: true,
       trim: true
     },
-    products: [Product.schema]
+    products: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Product'
+      }
+    ]
   },
   {
     toJSON: {
