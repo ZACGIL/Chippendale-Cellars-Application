@@ -144,6 +144,8 @@ const typeDefs = `
     type Mutation {
         addUser(username: String!, email: String!, password: String!): Auth
         loginUser(email: String!, password: String!): Auth
+        addOrder(products: [ID]!): Order
+        
         addProduct(input: AddProductInput!): Product
 
         addWine(input: WineInput!): Wine

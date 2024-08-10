@@ -1,8 +1,6 @@
 const { User, Product, Wine, Beer, Category, Subcategory, Order } = require('../models');
 const { signToken, AuthenticationError } = require('../utils/auth');
-
-const connection = require('../config/connection');
-connection.on('error', (err) => err);
+const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
 const resolvers = {
     Query: {
@@ -22,13 +20,13 @@ const resolvers = {
             return Wine.find();
         },
         latestWines: async () => {
-            return Wine.find().sort({ _id: -1}).limit(5);
+            return Wine.find().sort({ _id: -1 }).limit(5);
         },
         beers: async () => {
             return Beer.find();
         },
         latestBeers: async () => {
-            return Beer.find().sort({ _id: -1}).limit(5);
+            return Beer.find().sort({ _id: -1 }).limit(5);
         },
         categories: async () => {
             return Category.find();
@@ -43,12 +41,49 @@ const resolvers = {
             console.log(args)
             return Beer.findById(args);
         },
-        order: async (parent, args) => {
-            return Order.findById(args);
+        order: async (parent, { _id }, context) => {
+            if (context.user) {
+                const user = await User.findById(context.user._id).populate({
+                    path: 'orders.products',
+                    populate: 'category'
+                });
+
+                return user.orders.id(_id);
+            }
+
+            throw AuthenticationError;
         },
-        checkout: async (parent, args) => {
-            //Stripe logic here
-            return console.log('Stripe logic')
+        checkout: async (parent, { _id }, context) => {
+            const url = new URL(context.headers.referer).origin;
+            await Order.create({ products: args.products.map(({ _id }) => _id) });
+            const line_items = [];
+
+            // eslint-disable-next-line no-restricted-syntax
+            for (const product of args.products) {
+                // Create a line item for each product
+                line_items.push({
+                    price_data: {
+                        currency: 'aud',
+                        product_data: {
+                            name: product.name,
+                            description: product.description,
+                            images: [`${url}/images/${product.image}`]
+                        },
+                        unit_amount: product.price * 100,
+                    },
+                    quantity: product.purchaseQuantity,
+                });
+            }
+
+            const session = await stripe.checkout.sessions.create({
+                payment_method_types: ['card'],
+                line_items,
+                mode: 'payment',
+                success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+                cancel_url: `${url}/`,
+            });
+
+            return { session: session.id };
         },
         product: async (parent, { _id, name }) => {
             if (_id) {
@@ -96,6 +131,17 @@ const resolvers = {
             }
             const token = signToken(user);
             return { token, user };
+        },
+        addOrder: async (parent, { products }, context) => {
+            if (context.user) {
+                const order = new Order({ products });
+
+                await User.findByIdAndUpdate(context.user._id, { $push: { orders: order } });
+
+                return order;
+            }
+
+            throw AuthenticationError;
         },
         addProduct: async (parent, { input }) => {
             const product = await Product.create(input);

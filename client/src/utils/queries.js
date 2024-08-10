@@ -46,3 +46,44 @@ query latestWines{
   }
 }
 `
+
+export const GET_WINES = gql`
+query getWines{
+  wines {
+    _id
+    varietal
+    productInformation {
+      _id
+      name
+      quantity
+      price
+    }
+  }
+}
+`
+
+export const GET_BEERS = gql`
+query getBeers{
+  beers {
+    _id
+    packSize
+    productInformation {
+      _id
+      name
+      quantity
+      price
+      category
+      subcategory
+    }
+  }
+}
+`
+
+export const GET_SUBCATEGORY = gql`
+query getSubcategory{
+  subcategory {
+    _id
+    name
+  }
+}
+`
