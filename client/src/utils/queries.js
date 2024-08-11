@@ -47,6 +47,21 @@ query latestWines{
 }
 `
 
+export const LATEST_BEERS = gql`
+query latestBeers{
+  latestBeers {
+    _id
+    productInformation {
+      _id
+      name
+      quantity
+      price
+      subcategory
+    }
+  }
+}
+`
+
 export const GET_WINES = gql`
 query getWines{
   wines {

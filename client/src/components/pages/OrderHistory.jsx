@@ -1,7 +1,9 @@
+import Auth from '../../utils/auth';
+
 export default function Order() {
-    return (
-        <div>
-            <h1>Orders Section</h1>
-        </div>
-    );
+    if(!Auth.loggedIn){
+        return (
+            <h1>You must be logged in to access this feature.</h1>
+        );
+    }
 }

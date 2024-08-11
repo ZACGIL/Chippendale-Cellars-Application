@@ -9,11 +9,6 @@ export default function LatestWineArrivals() {
 
     const { loading, data } = useQuery(LATEST_WINES);
 
-
-    if (!loading) {
-        console.log(data.latestWines);
-    }
-
     if (loading) {
         return (
             <div>

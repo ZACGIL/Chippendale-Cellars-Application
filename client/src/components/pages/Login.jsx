@@ -36,6 +36,7 @@ export default function Login() {
             console.log(userFormData);
             Auth.login(data.loginUser.token);
         } catch (err) {
+            alert('Incorrect login credentials please try again.')
             console.error(err);
         }
 

@@ -106,7 +106,7 @@ module.exports = {
         'Rose',
         'Cabernet Sauvignon',
         'Sauvignon Blanc',
-        'Chardonnary Pinot Noir',
+        'Chardonnay Pinot Noir',
         'Blend',
         'Tempranillo',
         'Grenache'

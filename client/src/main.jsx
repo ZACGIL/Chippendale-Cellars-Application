@@ -13,6 +13,7 @@ import Signup from './components/pages/Signup';
 import WinePage from './components/pages/WinePage';
 import BeerPage from './components/pages/BeerPage';
 import Order from './components/pages/OrderHistory';
+import CRUDForm from './components/pages/CRUDform';
 
 const router = createBrowserRouter([
     {
@@ -41,7 +42,7 @@ const router = createBrowserRouter([
                 element: <Signup />,
             },
             {
-                path: '/Item',
+                path: '/Item/:id',
                 element: <Item />,
             },
             {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
             {
                 path: '/OrderHistory',
                 element: <Order />,
+            },
+            {
+                path: '/CRUDform',
+                element: <CRUDForm />,
             },
         ],
     },

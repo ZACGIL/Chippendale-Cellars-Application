@@ -25,30 +25,52 @@ export const ADD_USER = gql`
   }
 `;
 
-// export const SAVE_BOOK = gql`
-//     mutation saveBook($input: BookInfo) {
-//     saveBook(input: $input) {
-//       _id
-//       savedBooks {
-//         authors
-//         description
-//         bookId
-//         title
-//       }
-//     }
-//   }
-// `;
+export const ADD_WINE = gql`
+mutation addWine($input: WineInput!){
+  addWine(input: $input) {
+    _id
+    productInformation {
+      _id
+      name
+      imagePath
+      category
+      subcategory
+      price
+      quantity
+    }
+    description
+    region
+    country
+    vintage
+    natural
+    varietal
+    volume
+    alcoholContent
+  }
+}
+`;
 
-// export const REMOVE_BOOK = gql`
-//   mutation removeBook($bookId: String!) {
-//     removeBook(bookId: $bookId) {
-//       _id
-//       savedBooks  {
-//         authors
-//         description
-//         bookId
-//         title
-//       }
-//     }
-//   }
-// `;
+export const UPDATE_WINE = gql`
+mutation updateWine($input: WineInput!) {
+  updateWine(input: $input) {
+    _id
+    productInformation {
+      _id
+      name
+      quantity
+    }   
+  }
+}
+`;
+
+export const DELETE_WINE = gql`
+mutation removeWine($_id: ID!){
+  removeWine(_id: $_id) {
+    _id 
+    name
+    products {
+      _id
+    }
+  }
+}
+`;

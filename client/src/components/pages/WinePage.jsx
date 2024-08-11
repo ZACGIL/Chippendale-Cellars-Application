@@ -21,12 +21,17 @@ export default function WinePage() {
         )
     }
 
+    const handleAddToCart = (id) => {
+        console.log(id);
+    }
+
     return (
-        <div className='font-body p-6 mx-auto'>
+        <div className='font-body p-20 mx-auto'>
             <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-40 justify-items-center content-center items-center bg-slate-400 w-screen'>
                 {data.wines.map((wine) => {
                     return (
                         <Card
+                            addToCart={()=>handleAddToCart(wine.productInformation._id)}
                             image={wineImage}
                             name={wine.productInformation.name}
                             subtitle={wine.varietal}
