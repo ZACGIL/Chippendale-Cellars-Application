@@ -210,7 +210,6 @@ const resolvers = {
                         },
                         { new: true }
                     );
-                    console.log('--', updateWine);
                     return updateWine;
                 }
             }
@@ -238,7 +237,7 @@ const resolvers = {
                     };
                 };
                 await Wine.findOneAndDelete({ _id: _id });
-                return updateCategory;
+                return wine;
             }
             catch (err) {
                 console.log(err);

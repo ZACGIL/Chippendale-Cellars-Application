@@ -155,8 +155,8 @@ export default function Nav() {
         }
     }
     return (
-        <div>
+        <>
             {showNavigation()}
-        </div>
+        </>
     );
 }

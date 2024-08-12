@@ -19,12 +19,17 @@ export default function UpdateWine() {
 
         try {
             const { data } = await updateWine({
-                variables: { ...updateFormData },
+                variables: { input: { _id: updateFormData._id, productInformation: { quantity: parseInt(updateFormData.quantity) }} },
             });
 
             if (!data) {
                 throw new Error(error);
             }
+
+            if(data.updateWine) {
+                alert('Updating was a success');
+            }else return alert('Incorrect form data.');
+
         } catch (err) {
             alert('Incorrect form data.')
             console.error(err);

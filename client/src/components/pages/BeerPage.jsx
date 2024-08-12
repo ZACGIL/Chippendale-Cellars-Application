@@ -1,13 +1,15 @@
-import { useQuery } from "@apollo/client";
+import { useQuery, useLazyQuery } from "@apollo/client";
 
 import { GET_BEERS } from "../../utils/queries";
+import { GET_SUBCATEGORY } from "../../utils/queries";
 
-import BeerCard from '../UI/Card';
+import BeerCard from '../UI/BeerCard';
 import beerImage from '../../images/beer_placeholder.png';
 
 export default function BeerPage() {
 
     const { loading, data } = useQuery(GET_BEERS);
+    //const [getSub, { subLoading, error, subData }] = useLazyQuery(GET_SUBCATEGORY);
 
     if (loading) {
         return (
@@ -15,12 +17,6 @@ export default function BeerPage() {
                 <h1 className='text-center'>LOADING...</h1>
             </div>
         )
-    }
-
-    console.log(data);
-    
-    const handleAddToCart = (id) => {
-        console.log(id);
     }
 
     if (!loading) {
@@ -31,9 +27,10 @@ export default function BeerPage() {
                         return (
                             <BeerCard
                                 addToCart={() => handleAddToCart(beer.productInformation._id)}
+                                _id = {beer._id}
                                 image={beerImage}
+                                subtitle={beer.packSize}
                                 name={beer.productInformation.name}
-                                _id={beer.productInformation._id}
                                 price={beer.productInformation.price}
                                 buttonClass={'bg-slate-400 hover:bg-orange-500 hover:text-white text-xl font-semibold py-2 px-4 border border-black rounded shadow'}
                             />

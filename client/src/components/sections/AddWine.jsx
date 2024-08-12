@@ -1,34 +1,24 @@
 import { useState } from 'react';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 
 import { ADD_WINE } from '../../utils/mutations';
+import { GET_CATEGORY } from '../../utils/queries';
 
 export default function CRUDform() {
     // set initial form state
     const [addWineFormData, setAddWineFormData] = useState(
         {
-            productionInformation: {
-                name: '', imagePath: '', price: 1, quantity: 0, category: '', subcategory: ''
-            }, description: '', varietal: '', producer: '', region: '', country: '', vintage: '', volume: 0, natural: false, alcoholContent: 0
+            name: '', imagePath: '', price: 1, quantity: 0, category: '', subcategory: '',
+            description: '', varietal: '', producer: '', region: '', country: '', vintage: '', volume: 0, natural: false, alcoholContent: 0
         }
     );
 
-    
     const [addWine, { error }] = useMutation(ADD_WINE);
 
-    const handleInputChange = object => event => {
+    const handleInputChange = event => {
         const { name, value } = event.target;
 
-        if (!object) {
-            setAddWineFormData({ ...addWineFormData, [name]: value });
-        } else {
-            setAddWineFormData({
-                ...addWineFormData, [addWineFormData.productionInformation]: {
-                    ...addWineFormData[addWineFormData.productionInformation],
-                    [name]: value
-                }
-            });
-        }
+        setAddWineFormData({ ...addWineFormData, [name]: value });
     };
 
     const handleFormSubmit = async (event) => {
@@ -36,14 +26,24 @@ export default function CRUDform() {
 
         try {
             const { data } = await addWine({
-                variables: { ...addWineFormData },
-            });
+                variables: {
+                    input: {
+                        productInformation: {
+                            name: addWineFormData.name, imagePath: addWineFormData.imagePath, price: parseFloat(addWineFormData.price), quantity: parseInt(addWineFormData.quantity), category: '66b4e8a83d0aec501fb9c9a1',
+                            subcategory: ['66b4e8a93d0aec501fb9c9ae']
+                        }, description: addWineFormData.description, varietal: addWineFormData.varietal, producer: addWineFormData.producer, region: addWineFormData.region,
+                        country: addWineFormData.country, vintage: addWineFormData.vintage, volume: parseInt(addWineFormData.volume), natural: addWineFormData.natural, alcoholContent: parseFloat(addWineFormData.alcoholContent)
+                    }
+                }
+            })
 
             if (!data) {
                 throw new Error(error);
             }
 
-            console.log(addWineFormData);
+            if(data.addWine) {
+                alert('Adding was a success');
+            }else return alert('Incorrect form data.');
 
         } catch (err) {
             alert('Incorrect form details, try again.')
@@ -52,9 +52,8 @@ export default function CRUDform() {
 
         setAddWineFormData(
             {
-                productionInformation: {
-                    name: '', imagePath: '', price: 1, quantity: 0, category: '', subcategory: ''
-                }, description: '', varietal: '', producer: '', region: '', country: '', vintage: '', volume: 0, natural: false, alcoholContent: 0
+                name: '', imagePath: '', price: 1, quantity: 0, category: '', subcategory: [],
+                description: '', varietal: '', producer: '', region: '', country: '', vintage: '', volume: 0, natural: false, alcoholContent: 0
             }
         );
     };
@@ -73,7 +72,7 @@ export default function CRUDform() {
                 <div className='mb-6'>
                     <input required
                         className="font-read shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        value={addWineFormData.productionInformation.name}
+                        value={addWineFormData.name}
                         name="name"
                         onChange={handleInputChange}
                         type="text"
@@ -88,7 +87,7 @@ export default function CRUDform() {
                 <div className='mb-6'>
                     <input required
                         className="font-read shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        value={addWineFormData.productionInformation.price}
+                        value={addWineFormData.price}
                         name="price"
                         onChange={handleInputChange}
                         type="number"
@@ -103,23 +102,8 @@ export default function CRUDform() {
                 <div className='mb-6'>
                     <input required
                         className="font-read shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        value={addWineFormData.productionInformation.quantity}
+                        value={addWineFormData.quantity}
                         name="quantity"
-                        onChange={handleInputChange}
-                        type="number"
-                        placeholder="The amount of items in stock"
-                    />
-                </div>
-                <div className='mb-4'>
-                    <label className="block text-gray-700 font-bold mb-2">
-                        Category:
-                    </label>
-                </div>
-                <div className='mb-6'>
-                    <input required
-                        className="font-read shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        value={addWineFormData.productionInformation.category}
-                        name="category"
                         onChange={handleInputChange}
                         type="number"
                         placeholder="The amount of items in stock"
@@ -153,6 +137,7 @@ export default function CRUDform() {
                         onChange={handleInputChange}
                         type="text"
                         placeholder="The varietal of the item">
+                        <option className='text-center'>-- Select an option --</option>
                         <option value="Shiraz">Shiraz</option>
                         <option value="Cabernet Sauvignon">Cabernet Sauvignon</option>
                         <option value="Pinot Noir">Pinot Noir</option>
@@ -254,8 +239,8 @@ export default function CRUDform() {
                         onChange={handleInputChange}
                         type="text"
                         placeholder="Was the item produced using natural methods">
-                        <option value="True">True</option>
                         <option value="False">False</option>
+                        <option value="True">True</option>
                     </select>
                 </div>
                 <div className='mb-4'>
@@ -269,7 +254,7 @@ export default function CRUDform() {
                         value={addWineFormData.alcoholContent}
                         name="alcoholContent"
                         onChange={handleInputChange}
-                        type="text"
+                        type="number"
                         placeholder="The alcohol content of the item"
                     />
                 </div>

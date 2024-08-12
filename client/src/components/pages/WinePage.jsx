@@ -9,10 +9,6 @@ export default function WinePage() {
 
     const { loading, data } = useQuery(GET_WINES);
 
-    if (!loading) {
-        console.log(data.wines);
-    }
-
     if (loading) {
         return (
             <div>
@@ -31,6 +27,7 @@ export default function WinePage() {
                 {data.wines.map((wine) => {
                     return (
                         <Card
+                            _id = {wine._id}
                             addToCart={()=>handleAddToCart(wine.productInformation._id)}
                             image={wineImage}
                             name={wine.productInformation.name}

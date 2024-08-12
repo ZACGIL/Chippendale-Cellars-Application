@@ -25,11 +25,15 @@ export default function DeleteWine() {
             if (!data) {
                 throw new Error(error);
             }
+
+            if(data.removeWine) {
+                alert('Deleting was a success');
+            }else return alert('Incorrect form data.');
+
         } catch (err) {
             alert('Incorrect form data.')
             console.error(err);
         }
-
         setDeleteForm({
             _id: '',
         });
@@ -39,7 +43,7 @@ export default function DeleteWine() {
         <div className='flex-col justify-center items-center text-2xl'>
             <form className='bg-white shadow-md rounded px-60 pt-12 pb-20 my-12' onSubmit={handleFormSubmit}>
                 <h1 className='text-center text-gray-700 font-bold underline text-5xl mb-12'>
-                    Delete A Wine
+                    Remove A Wine
                 </h1>
                 <div className='mb-4'>
                     <label className="block text-gray-700 font-bold mb-2">

@@ -51,6 +51,7 @@ export const LATEST_BEERS = gql`
 query latestBeers{
   latestBeers {
     _id
+    packSize
     productInformation {
       _id
       name
@@ -90,6 +91,62 @@ query getBeers{
       category
       subcategory
     }
+  }
+}
+`
+
+export const GET_SINGLE_WINE = gql`
+query getWine($_id: ID!){
+  wine(_id: $_id){
+    _id
+    description
+    varietal
+    producer
+    region
+    country
+    vintage
+    volume
+    natural
+    alcoholContent
+    productInformation {
+      _id
+      name
+      quantity
+      price
+      category
+      subcategory
+    }
+  }
+}
+`
+
+export const GET_SINGLE_BEER = gql`
+query getBeer($_id: ID!){
+  beer(_id: $_id){
+    _id
+    description
+    brewery
+    country
+    packSize
+    volume
+    alcoholContent
+    productInformation {
+      _id
+      name
+      quantity
+      price
+      category
+      subcategory
+    }
+  }
+}
+`
+
+export const GET_CATEGORY = gql`
+query getCategory{
+  category {
+    _id
+    name
   }
 }
 `

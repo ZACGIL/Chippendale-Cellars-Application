@@ -150,7 +150,7 @@ const typeDefs = `
 
         addWine(input: WineInput!): Wine
         updateWine(input: WineInput!): Wine
-        removeWine(_id: ID!): Category
+        removeWine(_id: ID!): Wine
 
         addBeer(input: BeerInput!): Beer
     }

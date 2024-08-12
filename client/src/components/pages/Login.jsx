@@ -8,7 +8,7 @@ import Auth from '../../utils/auth';
 export default function Login() {
     // set initial form state
     const [userFormData, setUserFormData] = useState({ email: '', password: '' });
-    // set state for form validation
+
     const [loginUser, { error }] = useMutation(LOGIN_USER);
 
     const handleInputChange = (event) => {

@@ -67,8 +67,7 @@ export const DELETE_WINE = gql`
 mutation removeWine($_id: ID!){
   removeWine(_id: $_id) {
     _id 
-    name
-    products {
+    productInformation {
       _id
     }
   }

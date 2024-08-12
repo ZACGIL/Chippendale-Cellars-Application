@@ -22,6 +22,7 @@ export default function LatestWineArrivals() {
             {data.latestWines.map((wine) => {
                 return (
                     <Card
+                        _id = {wine._id}
                         image={wineImage}
                         name={wine.productInformation.name}
                         subtitle={wine.varietal}

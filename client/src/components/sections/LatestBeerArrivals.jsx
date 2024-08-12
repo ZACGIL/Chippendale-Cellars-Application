@@ -2,16 +2,13 @@ import { useQuery } from "@apollo/client";
 
 import { LATEST_BEERS } from "../../utils/queries";
 
-import BeerCard from '../UI/Card';
+import BeerCard from '../UI/BeerCard';
 import beerImage from '../../images/beer_placeholder.png';
 
-export default function LatestWineArrivals() {
+export default function LatestBeerArrivals() {
 
     const { loading, data } = useQuery(LATEST_BEERS);
     
-    if(!loading){
-        console.log(data.latestBeers[1].productInformation.price);
-    }
     if (loading) {
         return (
             <div>
@@ -25,9 +22,10 @@ export default function LatestWineArrivals() {
             {data.latestBeers.map((beer) => {
                 return (
                     <BeerCard
+                        _id={beer._id}
                         image={beerImage}
+                        subtitle={beer.packSize}
                         name={beer.productInformation.name}
-                        itemId={beer.productInformation._id}
                         price={beer.productInformation.price}
                     />
                 )
