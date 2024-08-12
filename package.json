@@ -8,6 +8,7 @@
     "develop": "concurrently \"cd server && npm run watch\" \"cd client && npm run dev\"",
     "install": "cd server && npm i && cd ../client && npm i",
     "build": "cd client && npm run build",
+    "renderbuild": "npm run install && npm run build",
     "seed": "cd server && node seeds/seed.js",
     "dropdb": "cd server && node seeds/refresh.js",
     "freshstart": "npm run dropdb && npm run seed",
