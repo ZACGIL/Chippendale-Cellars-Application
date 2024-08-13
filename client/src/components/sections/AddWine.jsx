@@ -12,14 +12,21 @@ export default function CRUDform() {
             description: '', varietal: '', producer: '', region: '', country: '', vintage: '', volume: 0, natural: false, alcoholContent: 0
         }
     );
-
+    let wineCategoryId = '';
     const [addWine, { error }] = useMutation(ADD_WINE);
+    const { loading, data } = useQuery(GET_CATEGORY, {
+        variables: { name: 'Wine' },
+    });
 
     const handleInputChange = event => {
         const { name, value } = event.target;
 
         setAddWineFormData({ ...addWineFormData, [name]: value });
     };
+
+    if(!loading){
+        wineCategoryId = data.category[0]._id
+    }
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
@@ -29,8 +36,8 @@ export default function CRUDform() {
                 variables: {
                     input: {
                         productInformation: {
-                            name: addWineFormData.name, imagePath: addWineFormData.imagePath, price: parseFloat(addWineFormData.price), quantity: parseInt(addWineFormData.quantity), category: '66b4e8a83d0aec501fb9c9a1',
-                            subcategory: ['66b4e8a93d0aec501fb9c9ae']
+                            name: addWineFormData.name, imagePath: addWineFormData.imagePath, price: parseFloat(addWineFormData.price), quantity: parseInt(addWineFormData.quantity), category: wineCategoryId,
+                            subcategory: []
                         }, description: addWineFormData.description, varietal: addWineFormData.varietal, producer: addWineFormData.producer, region: addWineFormData.region,
                         country: addWineFormData.country, vintage: addWineFormData.vintage, volume: parseInt(addWineFormData.volume), natural: addWineFormData.natural, alcoholContent: parseFloat(addWineFormData.alcoholContent)
                     }
@@ -41,14 +48,15 @@ export default function CRUDform() {
                 throw new Error(error);
             }
 
-            if(data.addWine) {
+            if (data.addWine) {
                 alert('Adding was a success');
-            }else return alert('Incorrect form data.');
+            } else return alert('Incorrect form data.');
 
         } catch (err) {
             alert('Incorrect form details, try again.')
             console.error(err);
         }
+
 
         setAddWineFormData(
             {

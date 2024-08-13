@@ -7,7 +7,9 @@ import wineImage from '../../images/wine_placeholder.png';
 
 export default function LatestWineArrivals() {
 
-    const { loading, data } = useQuery(LATEST_WINES);
+    const { loading, data } = useQuery(LATEST_WINES, { 
+        pollInterval: 500
+        });
 
     if (loading) {
         return (

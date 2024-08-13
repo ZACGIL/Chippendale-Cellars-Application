@@ -7,7 +7,9 @@ import beerImage from '../../images/beer_placeholder.png';
 
 export default function LatestBeerArrivals() {
 
-    const { loading, data } = useQuery(LATEST_BEERS);
+    const { loading, data } = useQuery(LATEST_BEERS, { 
+        pollInterval: 500
+        });
     
     if (loading) {
         return (

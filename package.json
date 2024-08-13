@@ -9,15 +9,18 @@
     "install": "cd server && npm i && cd ../client && npm i",
     "build": "cd client && npm run build",
     "renderbuild": "npm run install && npm run build",
-    "seed": "cd server && node seeds/seed.js",
     "dropdb": "cd server && node seeds/refresh.js",
-    "freshstart": "npm run dropdb && npm run seed",
-    "testseed": "cd server && node seeds/testseed.js"
+    "testseed": "cd server && node seeds/testseed.js",
+    "seed": "npm run dropdb && cd server && node seeds/seed.js && node seeds/testseed.js",
+    "freshstart": "npm run dropdb && npm run seed"
   },
   "keywords": [],
   "author": "Zac Gilfoyle",
   "license": "MIT",
   "devDependencies": {
     "concurrently": "^8.2.0"
+  },
+  "dependencies": {
+    "mongodb": "^6.8.0"
   }
 }

@@ -8,7 +8,9 @@ import beerImage from '../../images/beer_placeholder.png';
 
 export default function BeerPage() {
 
-    const { loading, data } = useQuery(GET_BEERS);
+    const { loading, data } = useQuery(GET_BEERS, { 
+        pollInterval: 500
+    });
     //const [getSub, { subLoading, error, subData }] = useLazyQuery(GET_SUBCATEGORY);
 
     if (loading) {

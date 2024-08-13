@@ -143,19 +143,19 @@ query getBeer($_id: ID!){
 `
 
 export const GET_CATEGORY = gql`
-query getCategory{
-  category {
-    _id
+query getCategory($name: String) {
+  category(name: $name) {
     name
+    _id
   }
 }
 `
 
 export const GET_SUBCATEGORY = gql`
-query getSubcategory{
-  subcategory {
-    _id
+query getSubcategory($name: String) {
+  subcategory(name: $name) {
     name
+    _id
   }
 }
 `

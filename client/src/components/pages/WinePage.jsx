@@ -7,7 +7,9 @@ import wineImage from '../../images/wine_placeholder.png';
 
 export default function WinePage() {
 
-    const { loading, data } = useQuery(GET_WINES);
+    const { loading, data } = useQuery(GET_WINES, { 
+        pollInterval: 500
+        });
 
     if (loading) {
         return (
