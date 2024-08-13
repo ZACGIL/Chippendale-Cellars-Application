@@ -3,8 +3,6 @@ import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-import Auth from '../../utils/auth';
-
 export default function CatalogueHeader() {
     const location = useLocation();
     const [isActive, setActive] = useState(true);

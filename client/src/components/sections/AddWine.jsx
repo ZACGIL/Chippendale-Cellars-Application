@@ -12,8 +12,11 @@ export default function CRUDform() {
             description: '', varietal: '', producer: '', region: '', country: '', vintage: '', volume: 0, natural: false, alcoholContent: 0
         }
     );
+
     let wineCategoryId = '';
+
     const [addWine, { error }] = useMutation(ADD_WINE);
+    
     const { loading, data } = useQuery(GET_CATEGORY, {
         variables: { name: 'Wine' },
     });
