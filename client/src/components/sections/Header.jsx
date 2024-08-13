@@ -16,7 +16,7 @@ export default function Header() {
         }
 
         if (Auth.loggedIn()) {
-            if (Auth.getProfile().data.email === 'zac.gilfoyle@gmail.com') {
+            if (Auth.getProfile().data.username === 'Zac') {
                 return (
                     <>
                         <div className='flex-col fixed w-screen font-body text-xl'>

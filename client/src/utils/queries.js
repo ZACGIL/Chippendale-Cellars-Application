@@ -68,6 +68,7 @@ query getWines{
   wines {
     _id
     varietal
+    volume
     productInformation {
       _id
       name
@@ -83,6 +84,7 @@ query getBeers{
   beers {
     _id
     packSize
+    volume
     productInformation {
       _id
       name
