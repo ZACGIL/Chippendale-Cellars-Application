@@ -5,6 +5,8 @@ import Nav from './Nav';
 import SearchBar from './SearchBar';
 import logo from '../../images/logo_placeholder.png';
 
+import Filter from './Filter';
+
 import Auth from '../../utils/auth';
 
 export default function Header() {
