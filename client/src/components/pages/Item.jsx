@@ -41,8 +41,7 @@ export default function Item() {
           </div>
           <div className='flex-col justify-center text-black font-body w-11/12 lg:w-1/4 h-fit p-6 m-5 bg-white border-2 border-black'>
             <h1 className='text-center font-bold text-3xl'>{data.wine.productInformation.name}</h1>
-            <div className='my-6 text-2xl'>
-              <p className='my-4'>ID tag: {data.wine._id}</p>
+            <div id={data.wine._id} className='my-6 text-2xl'>
               <p className='my-4'>Description: {data.wine.description || 'Not specified'}</p>
               <p className='my-4'>Varietal: {data.wine.varietal}</p>
               <p className='my-4'>Country: {data.wine.country || 'Not specified'}</p>
