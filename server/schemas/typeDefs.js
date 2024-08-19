@@ -129,6 +129,8 @@ const typeDefs = `
         wines: [Wine]
         wine(_id: ID!): Wine
         latestWines: [Wine]
+        highestCostWines: [Wine]
+        lowestCostWines: [Wine]
 
         beers: [Beer]
         beer(_id: ID!): Beer

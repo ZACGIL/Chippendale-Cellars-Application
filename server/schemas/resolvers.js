@@ -22,6 +22,12 @@ const resolvers = {
         latestWines: async () => {
             return Wine.find().sort({ _id: -1 }).limit(5);
         },
+        highestCostWines: async () => {
+            return Wine.find().sort({ 'productInformation.price': -1 });
+        },
+        lowestCostWines: async () => {
+            return Wine.find().sort({ 'productInformation.price': +1 });
+        },
         beers: async () => {
             return Beer.find();
         },
