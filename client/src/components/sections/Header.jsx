@@ -1,12 +1,35 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 import Nav from './Nav';
 import SearchBar from './SearchBar';
 import logo from '../../images/logo_placeholder.png';
 
+import Filter from '../sections/Filter';
+
 import Auth from '../../utils/auth';
 
 export default function Header() {
+    const location = useLocation();
+    const [isActive, setIsActive] = useState(false);
+
+    useEffect(() => {
+        checkActive(location.pathname);
+    }, [location]);
+
+    const showFilter = () => {
+        return (
+            <Filter />
+        )
+    }
+
+    const checkActive = (page) => {
+        if (page === '/Wine') {
+            setIsActive(true);
+        } else {
+            setIsActive(false);
+        }
+    }
 
     const showHeaderBar = () => {
 
@@ -16,10 +39,10 @@ export default function Header() {
         }
 
         if (Auth.loggedIn()) {
-            if (Auth.getProfile().data.username === 'Zac') {
+            if (Auth.getProfile().data.username === 'owner') {
                 return (
                     <>
-                        <div className='flex-col fixed w-screen font-body text-xl'>
+                        <div className='flex fixed bottom-0 w-screen font-body text-xl'>
                             <Link
                                 className='m-8 hover:text-yellow-300 border-2 border-black p-1 bg-orange-500    '
                                 key={1}
@@ -32,6 +55,7 @@ export default function Header() {
                                 to="/">
                                 [0] Cart
                             </Link>
+                            {isActive ? showFilter() : <></>}
                         </div>
                         <div className='bg-slate-300 shadow text-2xl'>
                             <div className='w-full mx-auto p-10 flex flex-col lg:flex-row items-center justify-between font-title'>
@@ -47,13 +71,14 @@ export default function Header() {
             } else {
                 return (
                     <>
-                        <div className='flex-col fixed w-screen font-body text-xl'>
+                        <div className='flex fixed bottom-0 font-body text-xl'>
                             <Link
                                 className='m-8 hover:text-yellow-300 border-2 border-black p-1 bg-orange-500    '
                                 key={2}
                                 to="/">
                                 [0] Cart
                             </Link>
+                            {isActive ? showFilter() : <></>}
                         </div>
                         <div className='bg-slate-300 shadow text-2xl'>
                             <div className='w-full mx-auto p-10 flex flex-col lg:flex-row items-center justify-between font-title'>
@@ -78,6 +103,9 @@ export default function Header() {
                             </div>
                             <Nav />
                         </div>
+                    </div>
+                    <div className='flex fixed bottom-0 w-screen font-body text-xl'>
+                        {isActive ? showFilter() : <></>}
                     </div>
                 </>
             );
