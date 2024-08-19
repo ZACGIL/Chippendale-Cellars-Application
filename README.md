@@ -8,6 +8,7 @@ This repository contains files for Chippendale Cellars Application. It is a full
 
 ## CRUD Login
 To test CRUD operations in the frontend login with the information below:
+
 Email: owner@email.com
 Password: Zac123
 
